@@ -87,13 +87,7 @@ public class EmployeeEntity implements Serializable {
 		this.designation = designation;
 	}
 
-	public String getJoiningDate() {
-		return joiningDate;
-	}
-
-	public void setJoiningDate(String joiningDate) {
-		this.joiningDate = joiningDate;
-	}
+	
 
 	public String getEmailId() {
 		return emailId;
@@ -159,11 +153,21 @@ public class EmployeeEntity implements Serializable {
 		this.country = country;
 	}
 
-	public String getCreatedDate() {
+	
+
+	public Date getJoiningDate() {
+		return joiningDate;
+	}
+
+	public void setJoiningDate(Date joiningDate) {
+		this.joiningDate = joiningDate;
+	}
+
+	public Date getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(String createdDate) {
+	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
 
