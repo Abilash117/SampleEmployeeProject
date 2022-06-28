@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
-import com.example.demo.exception.EmployeeExistsNotExistsException;
+import com.example.demo.exception.EntityExistsNotExistsException;
 import com.example.demo.model.EmployeeEntity;
 import com.example.demo.repository.EmployeeRepository;
 
@@ -20,7 +20,7 @@ public class EmployeeService {
 	public EmployeeEntity createEmployee(EmployeeEntity employeePojo) {
 		List<EmployeeEntity> employee = employeeRepository.findByEmailId(employeePojo.getEmailId());
 	     if(employee.size()>0) {
-	    	 throw new EmployeeExistsNotExistsException(employeePojo.getEmailId()+" is already available",1);
+	    	 throw new EntityExistsNotExistsException(employeePojo.getEmailId()+" is already available",1);
 	     }
 		EmployeeEntity employeeEntity = employeeRepository.save(employeePojo);
 		return employeeEntity;
@@ -41,7 +41,7 @@ public class EmployeeService {
 		if (optional.isPresent()) {
 			return optional.get();
 		} else {
-			throw new EmployeeExistsNotExistsException("Employee not exists with employeeId "+employeeId,1);
+			throw new EntityExistsNotExistsException("Employee not exists with employeeId "+employeeId,1);
 			
 		}
 	}

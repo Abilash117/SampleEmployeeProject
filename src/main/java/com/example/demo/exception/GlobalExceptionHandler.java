@@ -30,9 +30,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<ValidationOverallResponse>(overAllResponse, HttpStatus.BAD_REQUEST);
 	}
 
-	@ExceptionHandler(value = EmployeeExistsNotExistsException.class)
+	@ExceptionHandler(value = EntityExistsNotExistsException.class)
 	@ResponseBody
-	public ResponseEntity<ValidationErrorResponse> employeeExsists(EmployeeExistsNotExistsException ex) {
+	public ResponseEntity<ValidationErrorResponse> employeeExsists(EntityExistsNotExistsException ex) {
 		return new ResponseEntity<ValidationErrorResponse>(new ValidationErrorResponse(ex.getErrorMessage(), 1), HttpStatus.BAD_REQUEST);
 	}
 

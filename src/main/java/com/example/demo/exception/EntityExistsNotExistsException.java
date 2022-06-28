@@ -1,6 +1,6 @@
 package com.example.demo.exception;
 
-public class EmployeeExistsNotExistsException extends RuntimeException {
+public class EntityExistsNotExistsException extends RuntimeException {
 private String errorMessage ;
 private int errorCode;
 
@@ -20,7 +20,7 @@ public void setErrorMessage(String errorMessage) {
 	this.errorMessage = errorMessage;
 }
 
-public EmployeeExistsNotExistsException(String errorMessage,int errorCode) {
+public EntityExistsNotExistsException(String errorMessage,int errorCode) {
 	super();
 	this.errorMessage = errorMessage;
 	this.errorCode = errorCode;
