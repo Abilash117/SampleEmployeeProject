@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.example.demo.exception.EntityExistsNotExistsException;
 import com.example.demo.model.ProjectEntity;
 import com.example.demo.repository.ProjectRepository;
 @Component
@@ -27,7 +28,7 @@ public class ProjectService {
 		if (optional.isPresent()) {
 			return optional.get();
 		} else {
-			return new ProjectEntity();
+		  throw new EntityExistsNotExistsException("Project is not available with projectId="+ProjectId,1);
 		}
 	}
 

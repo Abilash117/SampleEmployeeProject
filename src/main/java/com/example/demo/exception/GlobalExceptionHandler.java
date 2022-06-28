@@ -35,5 +35,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<ValidationErrorResponse> employeeExsists(EntityExistsNotExistsException ex) {
 		return new ResponseEntity<ValidationErrorResponse>(new ValidationErrorResponse(ex.getErrorMessage(), 1), HttpStatus.BAD_REQUEST);
 	}
+	
+	@ExceptionHandler(value = Exception.class)
+	@ResponseBody
+	public ResponseEntity exception(Exception ex) {
+		return new ResponseEntity<>(ex.getMessage(),HttpStatus.BAD_REQUEST);
+	}
 
 }

@@ -8,6 +8,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
+
+import com.example.demo.enumeration.Status;
 import com.example.demo.exception.EntityExistsNotExistsException;
 import com.example.demo.model.EmployeeEntity;
 import com.example.demo.repository.EmployeeRepository;
@@ -46,7 +48,7 @@ public class EmployeeService {
 		}
 	}
 
-	public List<EmployeeEntity> getEmployeeByStatus(String employeeStatus) {
+	public List<EmployeeEntity> getEmployeeByStatus(Status employeeStatus) {
 		return employeeRepository.findByStatus(employeeStatus);
 	}
 	

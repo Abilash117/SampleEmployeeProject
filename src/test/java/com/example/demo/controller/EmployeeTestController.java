@@ -15,6 +15,7 @@ import org.mockito.Mockito;
 
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.example.demo.enumeration.Status;
 import com.example.demo.model.EmployeeEntity;
 import com.example.demo.service.EmployeeService;
 
@@ -92,22 +93,22 @@ public class EmployeeTestController {
 	public void getEmployeeByStatus() {
 		EmployeeEntity employeePojo = new EmployeeEntity();
 		employeePojo.setEmployeeId(1);
-		employeePojo.setStatus("active");
+		employeePojo.setStatus(Status.DE_ACTIVE);
 		EmployeeEntity employeePojo2 = new EmployeeEntity();
 		employeePojo2.setEmployeeId(2);
-		employeePojo2.setStatus("active");
+		employeePojo2.setStatus(Status.ACTIVE);
 		
 		List<EmployeeEntity> list = new ArrayList<>();
 		list.add(employeePojo);
 		list.add(employeePojo2);
 		
 		//stubing the values
-		Mockito.when(employeService.getEmployeeByStatus(ArgumentMatchers.any(String.class))).thenReturn(list);
-		List<EmployeeEntity> empEntityList  = employeService.getEmployeeByStatus("active");
+		Mockito.when(employeService.getEmployeeByStatus(ArgumentMatchers.any(Status.class))).thenReturn(list);
+		List<EmployeeEntity> empEntityList  = employeService.getEmployeeByStatus(Status.ACTIVE);
 		//checking for condition
 		assertThat(empEntityList.size()>0);
 		//verifying whether this service is called.
-		Mockito.verify(employeService).getEmployeeByStatus("active");
+		Mockito.verify(employeService).getEmployeeByStatus(Status.ACTIVE);
 	}
 	
 }

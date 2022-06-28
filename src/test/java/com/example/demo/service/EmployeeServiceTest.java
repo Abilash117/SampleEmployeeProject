@@ -12,6 +12,8 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import com.example.demo.enumeration.Status;
 import com.example.demo.model.EmployeeEntity;
 import com.example.demo.repository.EmployeeRepository;
 
@@ -70,19 +72,19 @@ public class EmployeeServiceTest {
 	public void getEmployeeByStatus() {
 		EmployeeEntity employeePojo = new EmployeeEntity();
 		employeePojo.setEmployeeId(1);
-		employeePojo.setStatus("de-active");
+		employeePojo.setStatus(Status.DE_ACTIVE);
 		EmployeeEntity employeePojo2 = new EmployeeEntity();
 		employeePojo.setEmployeeId(2);
-		employeePojo.setStatus("active");
+		employeePojo.setStatus(Status.ACTIVE);
 		List<EmployeeEntity> list = new ArrayList<>();
 		list.add(employeePojo);
 		list.add(employeePojo2);
 		// stubbing the value
-		Mockito.when(emplRepository.findByStatus(ArgumentMatchers.any(String.class))).thenReturn(list);
-		List<EmployeeEntity> employeePojoList = emplRepository.findByStatus("active");
+		Mockito.when(emplRepository.findByStatus(ArgumentMatchers.any(Status.class))).thenReturn(list);
+		List<EmployeeEntity> employeePojoList = emplRepository.findByStatus(Status.ACTIVE);
 		// checking for equals
 		assertEquals("active", employeePojoList.get(0).getStatus());
-		Mockito.verify(emplRepository).findByStatus("active");
+		Mockito.verify(emplRepository).findByStatus(Status.ACTIVE);
 	}
 
 }

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.enumeration.Status;
 import com.example.demo.exception.EntityValidationException;
 import com.example.demo.model.EmployeeEntity;
 import com.example.demo.service.EmployeeService;
@@ -52,7 +54,7 @@ public class Employee {
 	}
 
 	@GetMapping("/status/{status}")
-	public ResponseEntity<List<EmployeeEntity>> getEmployeeByStatus(@PathVariable String status) {
+	public ResponseEntity<List<EmployeeEntity>> getEmployeeByStatus(@PathVariable Status status) {
 		return new ResponseEntity<List<EmployeeEntity>>(employeeService.getEmployeeByStatus(status),HttpStatus.OK);
 	}
 }

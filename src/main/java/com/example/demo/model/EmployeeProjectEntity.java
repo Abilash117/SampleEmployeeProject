@@ -2,12 +2,16 @@ package com.example.demo.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.example.demo.enumeration.Status;
 
 /**
  * This class is for managing project_employee table.
@@ -35,7 +39,8 @@ public class EmployeeProjectEntity {
 	private String endDate;
 	
 	@Column(name = "status")
-	private String status;
+	@Enumerated(EnumType.STRING)
+	private Status status;
 	
 	@Column(name = "created_date")
 	private String createdDate;
@@ -74,10 +79,11 @@ public class EmployeeProjectEntity {
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
-	public String getStatus() {
+	
+	public Status getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 	public String getCreatedDate() {
