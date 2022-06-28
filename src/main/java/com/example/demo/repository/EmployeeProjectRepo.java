@@ -16,9 +16,4 @@ import com.example.demo.model.ProjectEntity;
 @Repository
 public interface EmployeeProjectRepo extends JpaRepository<EmployeeProjectEntity, Integer> {
 
-	@Transactional
-	@Modifying
-	@Query("Update EmployeeProjectEntity e set e.endDate=?1,e.status='completed' where e.employeeEntity =?2 and e.projectEntity=?3")
-	public Integer updateEmployeeProject(String endDate, EmployeeEntity employeeId, ProjectEntity projectId);
-
 }

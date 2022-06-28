@@ -1,7 +1,8 @@
 package com.example.demo.contoller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,13 +20,13 @@ public class EmployeeProject {
 	EmployeeProjectService employeeProjectService;
 
 	@PostMapping("/create")
-	public EmployeeProjectEntity createEmployeeProject(@RequestBody EmployeeProjectEntity employee_project) {
-		return employeeProjectService.createEmployeeProject(employee_project);
+	public ResponseEntity<EmployeeProjectEntity> createEmployeeProject(@RequestBody EmployeeProjectEntity employee_project) {
+		return new ResponseEntity<EmployeeProjectEntity>(employeeProjectService.createEmployeeProject(employee_project),HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/update")
-	public int updateEmployeeProject(@RequestBody EmployeeProjectEntity employee_project) {
-	return employeeProjectService.updateEmployeeProject(employee_project);
+	public ResponseEntity<EmployeeProjectEntity> updateEmployeeProject(@RequestBody EmployeeProjectEntity employee_project) {
+	return new ResponseEntity<EmployeeProjectEntity>(employeeProjectService.updateEmployeeProject(employee_project),HttpStatus.OK);
 	
 	}
 }

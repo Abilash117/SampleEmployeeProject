@@ -1,9 +1,18 @@
 package com.example.demo.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * This class is for managing project table.
@@ -15,22 +24,27 @@ public class ProjectEntity {
 
 	@Id
 	@Column(name = "PROJECT_ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer projectId;
 
 	@Column(name = "PROJECT_NAME")
+	@NotEmpty(message = "Project Name should not be empty")
 	private String projectName;
 	
 	@Column(name = "DESCRIPTION")
 	private String description;
 	
 	@Column(name = "CLIENT_NAME")
+	@Pattern(regexp = "[a-zA-z]+([ '.][a-zA-Z]+)*",message = "ClientName should contain only character")
 	private String clientName;
 	
 	@Column(name = "START_DATE")
-	private String startDate;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+	private Date startDate;
 	
 	@Column(name = "END_DATE")
-	private String endDate;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+	private Date endDate;
 	
 	@Column(name = "TEAM_SIZE")
 	private String teamSize;
@@ -71,19 +85,19 @@ public class ProjectEntity {
 		this.clientName = clientName;
 	}
 
-	public String getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(String startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
-	public String getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(String endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 

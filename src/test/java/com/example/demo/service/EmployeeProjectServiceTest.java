@@ -47,12 +47,12 @@ public void udateEmployeeProject() {
 	employeeProjectEntity.setEmployeeEntity(employeePojo);
 	employeeProjectEntity.setProjectEntity(projectBean);
 	//stubbing the values
-	when(employeeProjectRepo.updateEmployeeProject(ArgumentMatchers.any(String.class),ArgumentMatchers.any(EmployeeEntity.class),ArgumentMatchers.any(ProjectEntity.class))).thenReturn(1);
-	Integer returnEmployeeProjectEntity = employeeProjectRepo.updateEmployeeProject("15-9-22",employeePojo,projectBean);
+	when(employeeProjectRepo.save(employeeProjectEntity)).thenReturn(employeeProjectEntity);
+	EmployeeProjectEntity returnEmployeeProjectEntity = employeeProjectRepo.save(employeeProjectEntity);
 	//checking the values
-	assertEquals(returnEmployeeProjectEntity, 1);
+	assertEquals(returnEmployeeProjectEntity.getEmployeeEntity().getEmployeeId(), 1);
 	//verfiy updateEmployeeProject is called or not
-	verify(employeeProjectRepo).updateEmployeeProject("15-9-22",employeePojo,projectBean);
+	verify(employeeProjectRepo).save(employeeProjectEntity);
 }
 
 

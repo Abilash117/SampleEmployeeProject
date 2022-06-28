@@ -2,11 +2,19 @@ package com.example.demo.model;
 
 import java.io.Serializable;
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -22,18 +30,25 @@ public class EmployeeEntity implements Serializable {
 
 	@Id
 	@Column(name = "EMPLOYEE_ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer employeeId;
 	
 	@Column(name = "EMPLOYEE_NAME")
+	@NotEmpty(message = "Employee name should not be blank")
+	@Pattern(regexp = "[a-zA-z]+([ '.][a-zA-Z]+)*",message = "EmployeeName should contain only character")
     private String employeeName;
 	
 	@Column(name = "DESIGNATION")
+	@NotBlank(message = "Designation name should not be blank")
+	@Pattern(regexp = "[a-zA-z]+([ '.][a-zA-Z]+)*",message = "Designation should contain only character")
 	private String designation;
 	
 	@Column(name = "JOINING_DATE")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
 	private Date joiningDate;
 	
-	@Column(name = "EMAIL_ID")
+	@Column(name = "EMAIL_ID",unique = true)
+	@Email(message = "Enter valid email")
 	private String emailId;
 	
 	@Column(name = "MOBILE_NUM")
@@ -58,6 +73,7 @@ public class EmployeeEntity implements Serializable {
 	private String country;
 	
 	@Column(name = "CREATED_DATE")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
 	private Date createdDate;
 	
 	@Column(name = "CREATED_BY")
@@ -87,7 +103,6 @@ public class EmployeeEntity implements Serializable {
 		this.designation = designation;
 	}
 
-	
 
 	public String getEmailId() {
 		return emailId;
@@ -154,7 +169,6 @@ public class EmployeeEntity implements Serializable {
 	}
 
 	
-
 	public Date getJoiningDate() {
 		return joiningDate;
 	}
@@ -162,7 +176,7 @@ public class EmployeeEntity implements Serializable {
 	public void setJoiningDate(Date joiningDate) {
 		this.joiningDate = joiningDate;
 	}
-
+	
 	public Date getCreatedDate() {
 		return createdDate;
 	}

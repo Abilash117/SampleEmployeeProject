@@ -50,8 +50,8 @@ public class EmployeeProjectTest {
 		employeeProjectEntity.setEmployeeEntity(employeePojo);
 		employeeProjectEntity.setProjectEntity(projectBean);
 		// stubbing the values
-		when(employeeProjectService.updateEmployeeProject(ArgumentMatchers.any(EmployeeProjectEntity.class))).thenReturn(1);
-		Integer returnEmployeeProjectEntity = employeeProjectService.updateEmployeeProject(employeeProjectEntity);
+		when(employeeProjectService.updateEmployeeProject(ArgumentMatchers.any(EmployeeProjectEntity.class))).thenReturn(employeeProjectEntity);
+		EmployeeProjectEntity returnEmployeeProjectEntity = employeeProjectService.updateEmployeeProject(employeeProjectEntity);
 		assertEquals(returnEmployeeProjectEntity, 1);
 		// verify updateEmployeeProject is called or not
 		verify(employeeProjectService).updateEmployeeProject(employeeProjectEntity);

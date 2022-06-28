@@ -11,13 +11,12 @@ public class EmployeeProjectService {
 	@Autowired
 	EmployeeProjectRepo employeeProjectRepo;
 
-	public EmployeeProjectEntity createEmployeeProject(EmployeeProjectEntity employee_Project) {
-		return employeeProjectRepo.save(employee_Project);
+	public EmployeeProjectEntity createEmployeeProject(EmployeeProjectEntity employeeProject) {
+		return employeeProjectRepo.save(employeeProject);
 	}
 	
-	public int updateEmployeeProject(EmployeeProjectEntity emplProjectEntity) {
-		String endDate = emplProjectEntity.getEndDate();
-		return employeeProjectRepo.updateEmployeeProject(endDate,emplProjectEntity.getEmployeeEntity(),emplProjectEntity.getProjectEntity());	
+	public EmployeeProjectEntity updateEmployeeProject(EmployeeProjectEntity emplProjectEntity) {
+		return employeeProjectRepo.save(emplProjectEntity);	
 	 
 	}
 }

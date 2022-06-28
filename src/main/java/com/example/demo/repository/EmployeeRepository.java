@@ -13,5 +13,8 @@ import com.example.demo.model.EmployeeEntity;
 public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Integer> {
 	/* @Query("select e from EmployeePojo e where e.status='active'") */
 	public List<EmployeeEntity> findByStatus(String status);
+	public List<EmployeeEntity> findByEmailId(String emaiId);
+	
+	
 
 }

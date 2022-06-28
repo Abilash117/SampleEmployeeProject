@@ -39,6 +39,24 @@ public class EmployeeTestController {
 	}
 	
 	@Test
+	public void getAllEmployeeByPageniationAndsort() {
+		EmployeeEntity employeePojo = new EmployeeEntity();
+		employeePojo.setEmployeeId(1);
+		EmployeeEntity employeePojo2 = new EmployeeEntity();
+		employeePojo2.setEmployeeId(2);
+		List<EmployeeEntity> list = new ArrayList<>();
+		list.add(employeePojo);
+		list.add(employeePojo2);
+		//stubing the values
+		Mockito.when(employeService.getAllEmployeeByPageniationAndsort(1,10,"employeeName")).thenReturn(list);
+		List<EmployeeEntity> empEntityList  = employeService.getAllEmployeeByPageniationAndsort(1,10,"employeeName");
+		//checking for condition
+		assertTrue(empEntityList.size()>0);
+		//verifying whether this service is called.
+		Mockito.verify(employeService).getAllEmployeeByPageniationAndsort(1,10,"employeeName");
+	}
+	
+	@Test
 	public void getAllEmployee() {
 		EmployeeEntity employeePojo = new EmployeeEntity();
 		employeePojo.setEmployeeId(1);
