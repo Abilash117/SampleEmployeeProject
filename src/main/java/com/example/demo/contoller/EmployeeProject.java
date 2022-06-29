@@ -1,15 +1,21 @@
 package com.example.demo.contoller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.exception.EntityValidationException;
 import com.example.demo.model.EmployeeProjectEntity;
 import com.example.demo.service.EmployeeProjectService;
+
 /**
  * This controller is used for CRUD operations in employee-project table.
  */
@@ -20,13 +26,18 @@ public class EmployeeProject {
 	EmployeeProjectService employeeProjectService;
 
 	@PostMapping("/create")
-	public ResponseEntity<EmployeeProjectEntity> createEmployeeProject(@RequestBody EmployeeProjectEntity employee_project) {
-		return new ResponseEntity<EmployeeProjectEntity>(employeeProjectService.createEmployeeProject(employee_project),HttpStatus.CREATED);
+	public ResponseEntity<EmployeeProjectEntity> createEmployeeProject(
+			@Valid @RequestBody EmployeeProjectEntity employee_project, BindingResult errors) {
+		if (errors.hasErrors()) {
+			throw new EntityValidationException(errors);
+		}
+		return new ResponseEntity<EmployeeProjectEntity>(employeeProjectService.createEmployeeProject(employee_project),
+				HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping("/update")
 	public ResponseEntity<EmployeeProjectEntity> updateEmployeeProject(@RequestBody EmployeeProjectEntity employee_project) {
-	return new ResponseEntity<EmployeeProjectEntity>(employeeProjectService.updateEmployeeProject(employee_project),HttpStatus.OK);
-	
+		return new ResponseEntity<EmployeeProjectEntity>(employeeProjectService.updateEmployeeProject(employee_project),HttpStatus.OK);
+
 	}
 }

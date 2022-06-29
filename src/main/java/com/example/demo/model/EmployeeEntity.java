@@ -37,7 +37,7 @@ public class EmployeeEntity implements Serializable {
 	private Integer employeeId;
 	
 	@Column(name = "EMPLOYEE_NAME")
-	@NotEmpty(message = "Employee name should not be blank")
+	@NotBlank(message = "Employee name should not be blank")
 	@Pattern(regexp = "[a-zA-z]+([ '.][a-zA-Z]+)*",message = "EmployeeName should contain only character")
     private String employeeName;
 	

@@ -1,15 +1,25 @@
 package com.example.demo.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import com.example.demo.exception.EntityExistsNotExistsException;
+import com.example.demo.model.EmployeeEntity;
 import com.example.demo.model.ProjectEntity;
 import com.example.demo.service.ProjectService;
 
@@ -18,6 +28,10 @@ public class ProjectTest {
 
 	@Mock
 	ProjectService projectService;
+	
+	@Autowired
+	Validator validator;
+
 
 	@Test
 	public void createProject() {
@@ -30,6 +44,18 @@ public class ProjectTest {
 		assertEquals(newpProjectEntity.getProjectId(), 1);
 		// verify the method is called or not
 		Mockito.verify(projectService).createProject(projectEntity);
+	}
+	
+	@Test
+	public void createProjectwithException() {
+		ProjectEntity projectEntity = new ProjectEntity();
+		projectEntity.setProjectId(1);
+		projectEntity.setClientName("sample-");
+		projectEntity.setProjectName("sampleproject");
+		// stubbing the values
+		Set<ConstraintViolation<ProjectEntity>> v = validator.validate(projectEntity);
+		ConstraintViolation<ProjectEntity> violation = v.iterator().next();
+		assertEquals("ClientName should contain only character", violation.getMessage());
 	}
 
 	@Test
@@ -68,5 +94,17 @@ public class ProjectTest {
 		assertEquals(returnValue.getProjectId(), 1);
 		// verify the method is called or not
 		Mockito.verify(projectService).getProjectById(1);
+	}
+	
+	@Test
+	public void getEmployeeByIdExceptionScenario()  {
+        // stubing the values
+        Mockito.when(projectService.getProjectById(100)).thenThrow(new EntityExistsNotExistsException("project is not available with given id", 0));
+		EntityExistsNotExistsException exception = assertThrows(EntityExistsNotExistsException.class, () -> {
+			projectService.getProjectById(100);
+		});
+		assertEquals("project is not available with given id", exception.getErrorMessage());
+		// verifying whether this service is called.
+		Mockito.verify(projectService).getProjectById(100);
 	}
 }

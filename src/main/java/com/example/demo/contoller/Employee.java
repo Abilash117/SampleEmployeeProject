@@ -2,6 +2,8 @@ package com.example.demo.contoller;
 
 import java.util.List;
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,12 +32,12 @@ public class Employee {
 	EmployeeService employeeService;
 
 	@PostMapping("/create")
-	public ResponseEntity createEmployee(@Valid @RequestBody EmployeeEntity employePojo,BindingResult errors){
-	     if(errors.hasErrors()){
-			throw new EntityValidationException(errors);
-		 }
-		EmployeeEntity responseEmployee = employeeService.createEmployee(employePojo);
-		return new ResponseEntity("Employee created successfully with Id"+employePojo.getEmployeeId(),HttpStatus.CREATED);
+	public ResponseEntity<String> createEmployee(@Valid @RequestBody EmployeeEntity employeeEntity,BindingResult errors){
+		 if(errors.hasErrors()){ 
+			 throw new EntityValidationException(errors); 
+		  }
+		EmployeeEntity responseEmployee = employeeService.createEmployee(employeeEntity);
+		return new ResponseEntity<String>("Employee created successfully with Id"+responseEmployee.getEmployeeId(),HttpStatus.CREATED);
 	}
 
 	@GetMapping("/all")
@@ -44,7 +46,7 @@ public class Employee {
 	}
 	
 	@GetMapping("/all/byPage")
-	public ResponseEntity<List<EmployeeEntity>> getAllEmployeeByPageniationAndsort(@RequestParam Integer pageNumber,@RequestParam Integer pageSize,@RequestParam String sortyBy) {
+	public ResponseEntity<List<EmployeeEntity>> getAllEmployeeByPageniationAndsort(@RequestParam(defaultValue = "0") Integer pageNumber,@RequestParam(defaultValue = "10") Integer pageSize,@RequestParam(defaultValue = "employeeId") String sortyBy) {
 		return new ResponseEntity<List<EmployeeEntity>>(employeeService.getAllEmployeeByPageniationAndsort(pageNumber,pageSize,sortyBy),HttpStatus.OK);
 	}
 

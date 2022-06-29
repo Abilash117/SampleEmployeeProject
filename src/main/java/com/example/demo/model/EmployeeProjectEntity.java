@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.example.demo.enumeration.Status;
 
@@ -26,10 +28,12 @@ public class EmployeeProjectEntity {
 	
 	@ManyToOne
 	@JoinColumn(name="employee_id")
+	@NotNull(message = "Employee entity should not be empty")
 	private EmployeeEntity employeeEntity;
 	
 	@ManyToOne 
 	@JoinColumn(name="project_id")
+	@NotNull(message = "project entity should not be empty")
 	private ProjectEntity projectEntity;
 	
 	@Column(name = "state_date")

@@ -1,9 +1,7 @@
 package com.example.demo.contoller;
 
 import java.util.List;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.exception.EntityValidationException;
 import com.example.demo.model.ProjectEntity;
 import com.example.demo.service.ProjectService;
-import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 /**
  * This controller is used for CRUD operations in project table.
@@ -30,12 +28,12 @@ public class Project {
 	ProjectService projectService;
 
 	@PostMapping("/create")
-	public ResponseEntity createProject(@Valid @RequestBody ProjectEntity project,BindingResult errors) {
+	public ResponseEntity<ProjectEntity> createProject(@Valid @RequestBody ProjectEntity projectEntity,BindingResult errors) {
 		if(errors.hasErrors()) {
 			throw new EntityValidationException(errors);
 		}
-		ProjectEntity projectEntity = projectService.createProject(project);
-		return new ResponseEntity(projectEntity,HttpStatus.CREATED);
+		ProjectEntity responseProjectEntity = projectService.createProject(projectEntity);
+		return new ResponseEntity<ProjectEntity>(responseProjectEntity,HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/all")

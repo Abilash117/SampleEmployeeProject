@@ -21,20 +21,20 @@ public class EmployeeService {
 
 	public EmployeeEntity createEmployee(EmployeeEntity employeePojo) {
 		List<EmployeeEntity> employee = employeeRepository.findByEmailId(employeePojo.getEmailId());
-	     if(employee.size()>0) {
-	    	 throw new EntityExistsNotExistsException(employeePojo.getEmailId()+" is already available",1);
-	     }
+		if (employee.size() > 0) {
+			throw new EntityExistsNotExistsException(employeePojo.getEmailId() + " is already available", 1);
+		}
 		EmployeeEntity employeeEntity = employeeRepository.save(employeePojo);
 		return employeeEntity;
 	}
 
 	public List<EmployeeEntity> getAllEmployee() {
-		return  employeeRepository.findAll(); 
+		return employeeRepository.findAll();
 	}
-	
-	public List<EmployeeEntity> getAllEmployeeByPageniationAndsort(Integer pageNo,Integer pageSize,String sortBy) {
-		Pageable page  = PageRequest.of(pageNo,pageSize,Sort.by(sortBy));
-		Page<EmployeeEntity> pages = employeeRepository.findAll(page); 
+
+	public List<EmployeeEntity> getAllEmployeeByPageniationAndsort(Integer pageNo, Integer pageSize, String sortBy) {
+		Pageable page = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+		Page<EmployeeEntity> pages = employeeRepository.findAll(page);
 		return pages.getContent();
 	}
 
@@ -43,17 +43,17 @@ public class EmployeeService {
 		if (optional.isPresent()) {
 			return optional.get();
 		} else {
-			throw new EntityExistsNotExistsException("Employee not exists with employeeId "+employeeId,1);
-			
+			throw new EntityExistsNotExistsException("Employee not exists with employeeId " + employeeId, 1);
+
 		}
 	}
 
 	public List<EmployeeEntity> getEmployeeByStatus(Status employeeStatus) {
 		return employeeRepository.findByStatus(employeeStatus);
 	}
-	
+
 	public List<EmployeeEntity> getEmployeeByEmail(String employeeEmail) {
 		return employeeRepository.findByEmailId(employeeEmail);
 	}
-	
+
 }
