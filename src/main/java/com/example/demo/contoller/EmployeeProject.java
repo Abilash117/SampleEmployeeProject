@@ -26,13 +26,11 @@ public class EmployeeProject {
 	EmployeeProjectService employeeProjectService;
 
 	@PostMapping("/create")
-	public ResponseEntity<EmployeeProjectEntity> createEmployeeProject(
-			@Valid @RequestBody EmployeeProjectEntity employee_project, BindingResult errors) {
+	public ResponseEntity<EmployeeProjectEntity> createEmployeeProject(@Valid @RequestBody EmployeeProjectEntity employee_project, BindingResult errors) {
 		if (errors.hasErrors()) {
 			throw new EntityValidationException(errors);
 		}
-		return new ResponseEntity<EmployeeProjectEntity>(employeeProjectService.createEmployeeProject(employee_project),
-				HttpStatus.CREATED);
+		return new ResponseEntity<EmployeeProjectEntity>(employeeProjectService.createEmployeeProject(employee_project),HttpStatus.CREATED);
 	}
 
 	@PutMapping("/update")

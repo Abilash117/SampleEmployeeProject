@@ -16,10 +16,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(value = EntityValidationException.class)
 	@ResponseBody
-	public ResponseEntity<ValidationOverallResponse> handleMetohdArugument(EntityValidationException ex) {
+	public ResponseEntity<ValidationOverallResponse> handleMetohdArugument(EntityValidationException entityException) {
 		Map<String, ArrayList<ValidationErrorResponse>> errorResponse = new LinkedHashMap<>();
 		int errorCode = 0;
-		for (FieldError error : ex.getBindingResult().getFieldErrors()) {
+		for (FieldError error : entityException.getBindingResult().getFieldErrors()) {
 			errorCode = errorCode + 1;
 			ArrayList<ValidationErrorResponse> validationList = new ArrayList<ValidationErrorResponse>();
 			validationList.add(new ValidationErrorResponse(error.getDefaultMessage(), errorCode));

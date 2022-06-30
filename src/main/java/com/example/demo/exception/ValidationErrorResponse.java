@@ -6,8 +6,9 @@ public class ValidationErrorResponse {
 		this.errorMessage = errorMessage;
 		this.errorCode = errorCode;
 	}
+	private int errorCode;
 	private String errorMessage;
-	 private int errorCode;
+	
 	public String getErrorMessage() {
 		return errorMessage;
 	}

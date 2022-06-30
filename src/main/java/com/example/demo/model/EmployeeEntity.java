@@ -51,6 +51,7 @@ public class EmployeeEntity implements Serializable {
 	private Date joiningDate;
 	
 	@Column(name = "EMAIL_ID",unique = true)
+	@NotBlank(message = "Email id should not be blank")
 	@Email(message = "Enter valid email")
 	private String emailId;
 	
