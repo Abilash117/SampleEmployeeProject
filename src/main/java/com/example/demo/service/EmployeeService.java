@@ -19,6 +19,14 @@ public class EmployeeService {
 	@Autowired
 	EmployeeRepository employeeRepository;
 
+	public EmployeeRepository getEmployeeRepository() {
+		return employeeRepository;
+	}
+
+	public void setEmployeeRepository(EmployeeRepository employeeRepository) {
+		this.employeeRepository = employeeRepository;
+	}
+
 	public EmployeeEntity createEmployee(EmployeeEntity employeePojo) {
 		List<EmployeeEntity> employee = employeeRepository.findByEmailId(employeePojo.getEmailId());
 		if (employee.size() > 0) {

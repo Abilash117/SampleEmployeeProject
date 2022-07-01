@@ -18,6 +18,8 @@ import javax.validation.constraints.Pattern;
 import com.example.demo.enumeration.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -34,12 +36,14 @@ public class EmployeeEntity implements Serializable {
 	@Id
 	@Column(name = "EMPLOYEE_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@ApiModelProperty(value = "employeeId",notes = "employe id is auto generated and unique")
 	private Integer employeeId;
 	
 	@Column(name = "EMPLOYEE_NAME")
 	@NotBlank(message = "Employee name should not be blank")
 	@Pattern(regexp = "[a-zA-z]+([ '.][a-zA-Z]+)*",message = "EmployeeName should contain only character")
-    private String employeeName;
+	@ApiModelProperty(value = "employeeName",notes = "Employee name should be character")
+	private String employeeName;
 	
 	@Column(name = "DESIGNATION")
 	@NotBlank(message = "Designation name should not be blank")

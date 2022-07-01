@@ -18,7 +18,12 @@ public class EmployeeProjectService {
 	}
 
 	public EmployeeProjectEntity updateEmployeeProject(EmployeeProjectEntity emplProjectEntity) {
-		Optional<EmployeeProjectEntity> responseEmployeeProjectEntity = employeeProjectRepo.findById(emplProjectEntity.getId());
+		Optional<EmployeeProjectEntity> responseEmployeeProjectEntity = null;
+		if(emplProjectEntity.getId()!=null) {
+		 responseEmployeeProjectEntity = employeeProjectRepo.findById(emplProjectEntity.getId());
+		}else {
+			throw new EntityExistsNotExistsException("Kindly provide the id to update the value", 1);
+		}
 		EmployeeProjectEntity entity = new EmployeeProjectEntity();
 		if (responseEmployeeProjectEntity.isPresent()) {
 			entity = responseEmployeeProjectEntity.get();
