@@ -50,7 +50,7 @@ public class Employee {
 	}
 	
 	@GetMapping("/all/byPage")
-	@ApiOperation("get All employees with pagination and sortby applied, if noe query param provided by defaulf pagenum=0,pagesize=10,sortby=employeeId")
+	@ApiOperation("get All employees with pagination and sortby applied, if no query param provided by defaulf pagenum=0,pagesize=10,sortby=employeeId")
 	public ResponseEntity<List<EmployeeEntity>> getAllEmployeeByPageniationAndsort(@RequestParam(defaultValue = "0") Integer pageNumber,@RequestParam(defaultValue = "10") Integer pageSize,@RequestParam(defaultValue = "employeeId") String sortyBy) {
 		return new ResponseEntity<List<EmployeeEntity>>(employeeService.getAllEmployeeByPageniationAndsort(pageNumber,pageSize,sortyBy),HttpStatus.OK);
 	}
